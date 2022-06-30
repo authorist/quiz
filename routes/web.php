@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,20 @@ Route::get('/', function () {
 });
 
 Route::middleware([
-    'auth:sanctum',
+    'auth', // 'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/panel', function () {
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],function(){
+
+            Route::resource('quizzes',QuizController::class);   
+              //  Route::get('deneme',function()  {
+                //    return "prefix testi";
+     });
+
+  
