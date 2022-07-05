@@ -24,11 +24,11 @@
                         <td>{{$quiz->status}}</td>
                         <td>{{$quiz->finished_at}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary btn-sm" ><i class="fa fa-pen"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm" ><i class="fa fa-times"></i></a>
+                            <a href="{{route('quizzes.edit',$quiz->id)}}" class="btn btn-primary btn-sm" ><i class="fa fa-pen"></i></a>
+                            <a href=" {{route('quizzes.destroy',$quiz->id)}} " class="btn btn-danger btn-sm" ><i class="fa fa-times"></i></a>
                         </td>
                         </tr>
-                        @endforeach 
+                        @endforeach  
                     </tbody>
                     </table>
                     {{$quizzes->links()}} 

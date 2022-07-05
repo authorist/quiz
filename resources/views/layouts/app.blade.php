@@ -15,8 +15,8 @@
 
         @livewireStyles
 
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- Scripts                   js in defer ini sildim -->
+        <script src="{{ mix('js/app.js') }}"      ></script>  
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -40,10 +40,29 @@
             <main>
             <div class="py-6">
               <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                 {{ $slot }}   
+
+
+              @if($errors->any())
+                <div class="alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </div>    
+                @endif 
+
+
+            @if(session('success'))
+            <div class="alert alert-success">
+                <i class="fa fa-check"></i>
+                {{session('success')}}
+            </div>
+            @endif
+
+                {{ $slot }}   
                                 <!-- <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                                     <x-jet-welcome />
                                 </div> -->
+                              
                 </div>
                 </div>  
             </main>
@@ -51,7 +70,9 @@
         </div>
 
         @stack('modals')
-
+        @isset($js)
+                {{$js}}         <!--   =>   create.blade.php de enalta x slotun içine bir js kodu yazdık -->
+                @endif     
         @livewireScripts
     </body>
 </html>

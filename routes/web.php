@@ -30,9 +30,13 @@ Route::middleware([
 
 Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],function(){
 
+    //ilk önce destroy metodu aşagıya alırsan show methoda gider
+            
+            Route::get('quizzes/{id}',[QuizController::class,'destroy'])->whereNumber('id')->name('quizzes.destroy'); 
             Route::resource('quizzes',QuizController::class);   
+            
               //  Route::get('deneme',function()  {
                 //    return "prefix testi";
      });
 
-  
+ 
