@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
                 $this->call([
                         UserSeeder::class,
                         QuizSeeder::class,
+                        QuestionSeeder::class,
                 ]);
         // \App\Models\User::factory(5)->create(); //bu şekilde herkes kendi seedini çagırır çalıştırır hepsi bu sayfada değil yani herkes kendi seed bu user ın seedi
          //buradan kesip Userseeder a QuizSeeder a ekledik

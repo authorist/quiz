@@ -1,0 +1,3 @@
+1-laravel new deneme
+2-php artisan serve
+3-composer require laravel/jetstream

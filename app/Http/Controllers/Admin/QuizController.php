@@ -17,7 +17,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes=Quiz::paginate(3); // $quizzes=Quiz::get(); dersek veritabandaki hepsini gönderir paginate istege göre
+        $quizzes=Quiz::paginate(5); // $quizzes=Quiz::get(); dersek veritabandaki hepsini gönderir paginate istege göre
         return view('admin.quiz.list',compact('quizzes'));
     }
 
@@ -39,7 +39,7 @@ class QuizController extends Controller
      */
     public function store(QuizCreateRequest $request)
     {
-        // $quiz = new Quiz;
+        //funtion store() ->yeni sayfanın veritabanına yazılmasını kontrol eden fonksiyon       // $quiz = new Quiz;
         // $quiz->title= request->title;
         // $quiz->save();
         // daha önce böyle yapıyordu dahA kısası var
