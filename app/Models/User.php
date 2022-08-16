@@ -18,16 +18,28 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+//ilşki kurarken database kendi otonmatikme şu şekilsde yapıyor şimdi bu modelden yani user dan result a gittimiz de user ın yanı alt tire id ekliyip user_id result tablosunda arıyor
+    public function results()
+    {
+        return $this->hasMany('App\Models\Result'); 
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
+ 
+
+     
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
+
+    
+
 
     /**
      * The attributes that should be hidden for serialization.

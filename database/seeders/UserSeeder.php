@@ -20,10 +20,10 @@ class UserSeeder extends Seeder
             'email'=>'st@st',
             'email_verified_at' => now(),
             'type'=>'admin',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2a$12$mpmeIFf5xsvAO9G1.BCxTuA0la3foshh5qvt.SUEfgFXQJJ/6eX.u', // laravel hash generator----https://bcrypt-generator.com/
             'remember_token' => Str::random(10),
-        ]);
+        ]);      //bu manuel ekleme herhalde php artisan migrate:fresh oldugunda bunu tekrar ekler hatta seed de ne varsa ekler mesela aşagıda 10 tane user bununla birlikte 11 user oluşur
 
-        \App\Models\User::factory(5)->create(); 
+        \App\Models\User::factory(10)->create(); 
     }
 }

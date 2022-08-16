@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+ 
 return new class extends Migration
 {
     /**
@@ -11,12 +11,14 @@ return new class extends Migration
      *
      * @return void
      */
+    //“up” ve “down” methodları Migration’ımızın tetikleme eylemlerine oluşturma veya yok etme işlemlerini ifade etmektedir.
     public function up()
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->longText('description')->nullable();
+            $table->string('slug');
             $table->enum('status',['publish','draft','passive'])->default('draft');
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();

@@ -24,7 +24,10 @@ return new class extends Migration
             $table->longText('answer4');
             $table->enum('correct_answer',['answer1','answer2','answer3','answer4']);
             $table->timestamps();
+            
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
+            //quizzes tablosundaki id ile bu tablo question tablosundadaki quiz_id ile aynı yap
+            //diğer bir tabir ise =>  question tablosundaki quiz_id quizzes tablosundaki id ye references alsın ilişki kursun yani quiz id im quizzes tablosundaki id den biri olmalı mutlaka reference alıyor çünkü
             
         });
     }

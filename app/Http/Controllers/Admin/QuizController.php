@@ -15,11 +15,33 @@ class QuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
+
+     
     public function index()
-    {
-        $quizzes=Quiz::paginate(5); // $quizzes=Quiz::get(); dersek veritabandaki hepsini gönderir paginate istege göre
+    { 
+        $quizzes=Quiz::withCount('questions');
+
+        if(request()->get('title'))
+        {
+           $quizzes=$quizzes->where('title','LIKE',"%".request()->get('title')."%");
+        }
+        if(request()->get('status'))
+        {
+            $quizzes=$quizzes->where('status',request()->get('status'));
+            
+        }
+                                                             // return request()->get('title'); veya return request()->all();
+            $quizzes=$quizzes->paginate(5);                                                //$quizzes=Quiz::withCount('questions')->paginate(5); // $quizzes=Quiz::get(); dersek veritabandaki hepsini gönderir paginate istege göre
         return view('admin.quiz.list',compact('quizzes'));
     }
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -59,8 +81,16 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-       return "show metodu";
+     
+       //  $quiz = Quiz::with('my_result')->find($id)->get() ?? abort(404,'Quiz Bulunamadı');  get() kullanırsan whereId() kullan  find()kullanma  find() ile first() kullan
+        // $quiz = Quiz::with('my_result')->find($id)->first() ?? abort(404,'Quiz Bulunamadı');
+        $quiz = Quiz::with('topTen.user','results.user')->withCount('questions',)->find($id) ?? abort(404,'Quiz bulunamadı');
+        return view('admin.quiz.show',compact('quiz'));
+      
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -70,7 +100,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-         $quiz = Quiz::find($id) ?? abort(404,'Quiz Bulunamadı');  //burda güncellenecek id yakalıyor artık quiz ait bilgiler edit sayfasına gider
+         $quiz = Quiz::withCount('questions')->find($id) ?? abort(404,'Quiz Bulunamadı');  //burda güncellenecek id yakalıyor artık quiz ait bilgiler edit sayfasına gider
         // dd($quiz);    //db içersinde veriyi gösteririr içeriği yani attributesleri ayrıca id yoksa null döner null dönmesin hata dönsün onuda ??sora belirtebiliriz
 
          return view('admin.quiz.edit',compact('quiz')); //admin.quiz.edit edit sayfasına yönlendiriyor edit yerine update yazsakda olur
@@ -88,8 +118,10 @@ class QuizController extends Controller
         $quiz = Quiz::find($id) ?? abort(404,'Quiz Bulunamadı'); //udate ediyoruz ama veri var mı yokmu id sinden kontrol ediyoruz 
         
        // Quiz :: where('id',$id)->update($request->post()); //store func oldugu gibi komple post ediyoruz bu şekilde token veriside giderbu alana ait sütünumuz yok onu güncellemeyecegiz onun için onları excep ile kaldıracaguız
-       Quiz :: where('id',$id)->update($request->except(['_method','_token']));
-        return redirect()->route('quizzes.index')->withSuccess('Quiz güncelleme işlemi başarıyla gerçekleşti'); //index sayfasını aç şu meşajı ver diyor
+    //    Quiz :: where('id',$id)->first()->update($request->except(['_method','_token']));
+             Quiz ::find($id)->update($request->except(['_method','_token']));
+       
+      return redirect()->route('quizzes.index')->withSuccess('Quiz güncelleme işlemi başarıyla gerçekleşti'); //index sayfasını aç şu meşajı ver diyor
     }
 
     /**

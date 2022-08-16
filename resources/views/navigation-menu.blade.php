@@ -72,6 +72,9 @@
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
+
+
+
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
@@ -90,9 +93,24 @@
                             @endif
                         </x-slot>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <x-slot name="content">
-
-
 
 
                         @if(auth()->user()->type=='admin')
@@ -105,6 +123,28 @@
                         @endif 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
 
 
                             <!-- Account Management -->
@@ -194,7 +234,7 @@
                         {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>
                 </form>
-
+                
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="border-t border-gray-200"></div>
@@ -220,7 +260,7 @@
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ __('Switch Teams') }}
                     </div>
-
+                    
                     @foreach (Auth::user()->allTeams() as $team)
                         <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
                     @endforeach
